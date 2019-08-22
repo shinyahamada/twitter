@@ -22,6 +22,19 @@ services:
       MYSQL_DATABASE: twitter_db
     volumes:
       - db-data:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+      - PMA_USER=twitter
+      - PMA_PASSWORD=twitter
+    links:
+      - db
+    ports:
+      - 8080:80
+    volumes:
+      - /sessions
   s3:
     image: minio/minio
     ports:
@@ -35,4 +48,3 @@ services:
 volumes:
   db-data:
     driver: local
-
