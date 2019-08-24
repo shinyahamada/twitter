@@ -1,0 +1,55 @@
+"twitter"
+
+
+8/24
+
+ -- [URL設計 考える] -- all done
+
+done - resourceに準ずる
+done - ログイン画面 /login
+
+
+-- [vue.js環境整える helloworld ~ 切り替えチェック] -- all done
+
+done - config/app.php "locale" => 'ja' 地域設定
+done - package.json 編集 bootstrap使わんからpopper,jqueryとかも消してた
+done - npm instal package適用
+done - laravel mix 変更 => バージョニングしてキャッシュ残さないようにした
+done - [route-laravel] api以外はreturn-index indexの中身をvue pages切り替える
+done - index.blade作成
+done - bootstrap.js消しといた
+done - app.js 編集 vue helloworld => bladeでvue-componentタグ使わない作りだから上の部分消しておいた。
+done - [npm install -D vue-router] => -D は'--save-dev'の略らしい略しすぎやろ vue-router入れてますきっと
+done - App.vue 作成 => | vue-componentのtop | js/ に.vueがあるのが新鮮 | RouteVue / に子componentが入ってくる
+done - /js に pages/Login.vue 作成 test(?)も => 切り替え確認のために
+done - /jsに router.js作成 => vue,vue-router呼んで 各componentも呼んで, VueRouter使用宣言, route定義, routeインスタンスに入れる, export
+done - /app.js  vue,router,root-component[top component]呼んでる。Vueインスタンスに使うものいれて描画してる html vue関連タグの '/'の意味をきちんと理解できていないこの段階
+done - test <--> login component切り替えチェック
+done - URLの#を消す。 => /router.js VueRouterインスタンス mode: 'history'にすればいいらしい
+
+
+---- 出たエラー ----
+
+--- ["The Mix manifest does not exist.]
+タイミング-> index足した後。
+多分参考サイトのまま進めてたのに、元あったsassファイルを消して入れ替える
+作業をしなかったから。元にあったsassファイルでbootstrap呼び出そうとして
+エラーが出てた。そこの記述消したら直った。
+
+
+---- 次の日やること ----
+
+- laravelについてる認証を理解・実装。
+- testについての理解を深める
+- ブランチ切るの忘れないようにする 機能ごとにpushするようにする
+
+公式(?)[https://readouble.com/laravel/5.8/ja/authentication.html]
+に書いてる通りにやると、View別に用意してしまう。今回はSPAで作るから、
+以下を参考に作る
+
+[https://www.hypertextcandy.com/vue-laravel-tutorial-authentication/]
+
+こっちも元ある認証部分を使うけど、APIで返すからControllerでjsonを返すようになってる。
+詳しくは次の日見る。寝る。
+
+-----------------------
