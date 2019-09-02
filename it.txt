@@ -53,3 +53,32 @@ done - URLの#を消す。 => /router.js VueRouterインスタンス mode: 'hist
 詳しくは次の日見る。寝る。
 
 -----------------------
+
+
+8/25
+
+-- larave API認証  --
+
+done - RouteServiceProvider[mapApiRoutes]のmiddlewareをwebに変更 => cookie党使うから
+-
+
+
+
+-- testについて --
+
+done - インメモリのSQlite設定 database.php | phpunit.xml, インメモリDBとはローカルに格納するDBらしい
+done - [php artisan make:test RegisterApiTest] テストコード作成/編集
+done - api.php apiのroute
+done - controller resiseredメソッド作る。呼び出してるResisterUsersのresisterで使われてて、defailtのredirectを変えるため
+done - test走らせる
+
+
+
+-------------------
+
+9/2
+
+-- testについて
+
+done - TestCase.phpとLoginApiTest.phpの「setUp()両方が一致しないといけない」&& phpUnit8~戻り値の型宣言が必要になっている
+  =>だから両方に: void を両方につけたらうまく動いた。
