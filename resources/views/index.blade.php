@@ -20,8 +20,6 @@
   https://www.hypertextcandy.com/vue-laravel-tutorial-setting-up-spa-project -->
 </head>
 <body>
-  <!-- test? -->
-  <h1>Hello itpro from laravel</h1>
   <div id="app"></div>
 </body>
 </html>

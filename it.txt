@@ -82,3 +82,8 @@ done - test走らせる
 
 done - TestCase.phpとLoginApiTest.phpの「setUp()両方が一致しないといけない」&& phpUnit8~戻り値の型宣言が必要になっている
   =>だから両方に: void を両方につけたらうまく動いた。
+
+-- component つくっていく
+
+- navbar 作る
+- App.vueで使う宣言
