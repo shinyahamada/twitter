@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 import Test from './pages/Test.vue'
 import Login from './pages/Login.vue'
 import Profile from './pages/Profile.vue'
+import Posts from './pages/Posts.vue'
 
 import store from './store'
 
@@ -46,6 +47,11 @@ const routes = [
         next('/')
       }
     }
+  },
+  {
+    path: '/',
+    component: Posts,
+    name: 'posts'
   },
   {
     path: '/500',
