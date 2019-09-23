@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Post;
 
@@ -20,21 +20,10 @@ class PostController extends Controller
      */
     public function index()
     {
-      $posts = Post::all();
+      $posts = Post::where('is_deleted', false)->get();
 
       return ['result'=>1000, 'data'=>$posts];
 
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -43,9 +32,20 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function create(Request $request)
     {
-        //
+        $user = Auth::User();
+        $post = new Post();
+        $post['is_deleted'] = 0;
+        $post['user_id'] = $user->id;
+        $post['content'] = $request->content;
+        $result = $post->save();
+
+        if ($result) {
+          return ['result'=>1000];
+        } else {
+          return ['result'=>1009];
+        }
     }
 
     /**
@@ -88,8 +88,20 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+      if (!isset($id)) {
+        return ['result'=>1003];
+      }
+      $query = Post::where('id',$id)->where('is_deleted', false);
+      $post = $query->first();
+      $result = $query->update(['is_deleted' => true],
+                               ['content' => $post['content']]);
+      if ($result) {
+        return ['result'=>1000];
+      } else {
+        return ['result'=>1009];
+      }
+
     }
 }

@@ -5,10 +5,11 @@
     </RouterLink>
     <div class="navbar__menu">
       <div v-if="isLogin" class="navbar__item">
-        <button class="button">
+        <button class="button" @click="showForm = ! showForm ">
           <i class="icon ion-md-add"></i>
           tweet
         </button>
+        <PostForm v-model="showForm" />
         <div v-if="isLogin" class="navbar__item">
           <router-link class="button button--link" :to="{ name: 'profile', params: { id: user.id}}">
             {{ user.name }}のページへ
@@ -27,7 +28,17 @@
 
 <script>
 
+import PostForm from './PostForm.vue'
+
 export default {
+  components: {
+    PostForm
+  },
+  data() {
+    return {
+      showForm: false
+    }
+  },
   computed: {
     isLogin () {
       return this.$store.getters['auth/check']

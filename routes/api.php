@@ -25,3 +25,5 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 // post
 Route::get('/post', 'PostController@index')->name('post_index');
+Route::delete('/post/{id}', 'PostController@delete')->name('post_delete');
+Route::post('/post', 'PostController@create')->name('post_create');
