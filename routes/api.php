@@ -24,6 +24,15 @@ Route::post('/login', 'Auth\LoginController@login')->name('login');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 // post
-Route::get('/post', 'PostController@index')->name('post_index');
+Route::get('/post/{id}', 'PostController@index')->name('user_post');
+Route::get('/post', 'PostController@timeline')->name('user_timeline');
 Route::delete('/post/{id}', 'PostController@delete')->name('post_delete');
 Route::post('/post', 'PostController@create')->name('post_create');
+
+// comment
+Route::post('/post/{id}/comments', 'PostController@addComment')->name('post.comment');
+
+// like
+
+Route::put('/post/{id}/like', 'PostController@like')->name('post.like');
+Route::delete('/post/{id}/like', 'PostController@unlike');

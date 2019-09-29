@@ -1,17 +1,15 @@
 <template>
   <div class="">
-    <h1>Post page</h1>
     <div v-if="isLogin">
-      <h1>以下が投稿です</h1>
       <posts
-        class="posts"
+        class="posts mt-5"
         v-for="post in posts"
         :key="post.id"
         :item="post"
       />
     </div>
     <div v-else>
-      <h1>ログイン後投稿を見ることができます</h1>
+      <h3>ログイン後投稿を見ることができます</h3>
     </div>
   </div>
 </template>
@@ -34,10 +32,11 @@ export default {
       return this.$store.getters['auth/check']
     }
   },
-  // ここでapi叩いてposts取ってくる
   methods: {
     async fetchPosts () {
       const response = await axios.get('api/post')
+
+      console.log(response);
 
       if (response.status != OK) {
         this.$store.commit('error/setCode', response.status)

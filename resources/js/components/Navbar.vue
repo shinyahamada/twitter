@@ -1,29 +1,30 @@
 <template>
-  <nav class="navbar">
-    <RouterLink class="navbar__brand" to="/">
-      Twitter Clone
-    </RouterLink>
-    <div class="navbar__menu">
-      <div v-if="isLogin" class="navbar__item">
-        <button class="button" @click="showForm = ! showForm ">
-          <i class="icon ion-md-add"></i>
-          tweet
-        </button>
-        <PostForm v-model="showForm" />
+  <div class="">
+    <nav class="navbar bg-transparent">
+      <RouterLink class="navbar__brand" to="/">
+        <i class="fas fa-crow"> twitter clone</i>
+      </RouterLink>
+      <div class="navbar__menu">
         <div v-if="isLogin" class="navbar__item">
-          <router-link class="button button--link" :to="{ name: 'profile', params: { id: user.id}}">
-            {{ user.name }}のページへ
+          <a href="javascript:void(0)" class="ml-3" @click="showForm = ! showForm">
+            <i class="fas fa-comment-dots">新規投稿</i>
+          </a>
+          <router-link class="button button--link ml-3" :to="{ name: 'profile', params: { id: user.id}}">
+            マイページ
           </router-link>
+          <PostForm v-model="showForm" />
+          <a href="javascript:void(0)" @click="logout" class="ml-3">
+            <i class="fas fa-sign-out-alt">ログアウト</i>
+          </a>
         </div>
-        <button class="button button--link" @click="logout">Logout</button>
+        <div v-else class="navbar__item">
+          <RouterLink class="button button--link" to="/login">
+            <i class="fas fa-sign-in-alt">ログインページへ</i>
+          </RouterLink>
+        </div>
       </div>
-      <div v-else class="navbar__item">
-        <RouterLink class="button button--link" to="/login">
-          Login / Register
-        </RouterLink>
-      </div>
-    </div>
-  </nav>
+    </nav>
+  </div>
 </template>
 
 <script>

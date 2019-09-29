@@ -1,12 +1,14 @@
 <template>
   <div class="post-form" v-show="value">
-    <h2>投稿</h2>
-    <form class="form" @submit.prevent="submit">
-        <textarea v-model="content" name="content" rows="8" cols="80" placeholder="投稿する"></textarea>
-        <div class="form__button">
-          <button type="submit">投稿</button>
+    <div id="overlay" class="text-center">
+      <form class="form-group" @submit.prevent="submit">
+        <textarea class="form-control mx-auto" id="modal" v-model="content" name="content" rows="8" cols="80" placeholder="投稿する"></textarea>
+        <div class="form__button mt-3">
+          <button type="submit" class="btn btn-primary">投稿</button>
+          <button type="button" class="btn btn-secondary" @click="closeform">キャンセル</button>
         </div>
-    </form>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -39,6 +41,9 @@
         if (response.status == 200) {
           this.reload();
         }
+      },
+      closeform() {
+        this.$emit('input',false)
       }
     }
   }
