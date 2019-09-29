@@ -16,3 +16,10 @@ window.axios.interceptors.request.use(config => {
 
   return config
 })
+
+try {
+    window.$ = window.jQuery = require('jquery');
+
+    // require('bootstrap-sass');
+    require('bootstrap');
+} catch (e) {}

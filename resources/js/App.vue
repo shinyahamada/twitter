@@ -1,11 +1,10 @@
 <template>
   <div>
-    <header>
+    <header class="sticky-top">
       <navbar />
     </header>
     <main>
       <div class="container">
-        <h1>hello from app</h1>
         <RouterView />
       </div>
     </main>

@@ -12,6 +12,11 @@ import App from './App.vue'
 // CSRF 対策
 import './bootstrap'
 
+import '@fortawesome/fontawesome-free-webfonts/css/fontawesome.css'
+import '@fortawesome/fontawesome-free-webfonts/css/fa-solid.css'
+
+
+
 const createApp = async () => {
   await store.dispatch('auth/currentUser');
 

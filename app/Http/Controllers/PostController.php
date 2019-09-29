@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Post;
 
@@ -13,28 +13,62 @@ class PostController extends Controller
   // 全部API
 
 
+    public function like($id) {
+      $post = Post::where('id',$id)->with('likes')->first();
+
+      if (! $post) {
+        return ['result'=>1009];
+      }
+
+      $post->likes()->detach(Auth::user()->id);
+      $post->likes()->attach(Auth::user()->id);
+
+      return ['result'=>1000];
+    }
+
+    public function unlike($id) {
+      $post = Post::where('id',$id)->with('likes')->first();
+
+      if (!$post) {
+        return ['result'=>1009];
+      }
+
+      $post->likes()->detach(Auth::user()->id);
+
+      return ['result'=>1000,'post_id'=>$id];
+    }
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-      $posts = Post::all();
+
+      $posts = Post::with(['likes','user'])->where([
+        ['is_deleted', false],
+        ['posts.user_id', $id]
+        ])->latest()
+          ->get();
+
+      if (count($posts) == 0) {
+        $user = Auth::User();
+        return ['data'=>$user];
+      }
 
       return ['result'=>1000, 'data'=>$posts];
 
-
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function timeline() {
+      $posts = Post::with(['likes','user'])->where([
+        ['is_deleted', false]
+      ])->latest()
+        ->get();
+
+      return ['data'=>$posts];
     }
 
     /**
@@ -43,9 +77,20 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function create(Request $request)
     {
-        //
+        $user = Auth::User();
+        $post = new Post();
+        $post['is_deleted'] = 0;
+        $post['user_id'] = $user->id;
+        $post['content'] = $request->content;
+        $result = $post->save();
+
+        if ($result) {
+          return ['result'=>1000];
+        } else {
+          return ['result'=>1009];
+        }
     }
 
     /**
@@ -88,8 +133,30 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+      if (!isset($id)) {
+        return ['result'=>1003];
+      }
+      $query = Post::where('id',$id)->where('is_deleted', false);
+      $result = $query->update(['is_deleted' => true]);
+      if ($result) {
+        return ['result'=>1000];
+      } else {
+        return ['result'=>1009, 'debug'=>$id];
+      }
+
+    }
+
+    public function addComment(Post $post, Request $request) {
+      $comment = new Comment();
+      $comment->content = $request->content;
+      $comment->user_id = Auth::user()->id;
+      $post->comments()->save($comment);
+
+      $new_comment = Comment::where('id',$comment->id)->with('auther')->first();
+
+      return response($new_comment, 201);
+
     }
 }

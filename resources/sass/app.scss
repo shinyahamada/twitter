@@ -3,3 +3,11 @@
 
 // Variables
 @import 'variables';
+
+// bootstrap
+@import "~bootstrap/scss/bootstrap";
+@import 'navbar';
+
+// Font Awesome
+// @import "node_modules/font-awesome-scss/scss/font-awesome.scss";
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';

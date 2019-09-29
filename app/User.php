@@ -10,6 +10,11 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    public function follow_users() {
+      return $this->belongsToMany('User::class','follows','user_id','following_user_id')
+                  ->withTimestanps()->using('Follow::class');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
