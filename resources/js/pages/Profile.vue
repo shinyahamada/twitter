@@ -1,14 +1,10 @@
 <template id="">
   <div class="container-fluid">
-    <div class="user_info mt-3">
-      <div class="media">
-        <img :src="user.image" class="p-5 rounded-circle" alt="">
-        <div class="media-body p-5">
-          <h3 class="mt-0 mb-3">{{user.name}}</h3>
-          {{user.profile}}
-        </div>
-      </div>
-    </div>
+    <user
+      class="users mt-5"
+      :item="profile_user"
+    />
+
     <posts
       class="posts mt-5"
       v-for="(post, index) in posts"
@@ -21,10 +17,12 @@
 <script>
 import { OK } from '../util'
 import Post from '../components/Post.vue'
+import User from '../components/User.vue'
 
 export default {
   components: {
-    'posts': Post
+    'posts': Post,
+    'user': User
   },
   computed: {
     user() {
@@ -34,11 +32,12 @@ export default {
   data() {
     return {
       posts: [],
+      profile_user: null
     }
   },
   methods: {
     async fetchPosts () {
-      const response = await axios.get('../api/post/'+ this.$route.params['id'])
+      const response = await axios.get('/api/post/'+ this.$route.params['id'])
 
       // debug
       console.log(response);
@@ -49,11 +48,25 @@ export default {
       }
 
       this.posts = response.data.data
+    },
+    async fetchUser() {
+      const response = await axios.get('/api/user/'+this.$route.params['id'])
+
+      if (response.status != OK) {
+        console.log('error');
+      } else {
+        console.log('well done');
+      }
+
+      console.log(response);
+
+      this.profile_user = response.data
     }
   },
   watch: {
     $route: {
       async handler () {
+        await this.fetchUser()
         await this.fetchPosts()
       },
       immediate: true

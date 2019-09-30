@@ -1,18 +1,5 @@
 <template>
   <div class="container-fluid">
-    <!-- <ul class="tab list-unstyled">
-      <li
-        class="tab__item"
-        :class="{'tab__item--active': tab === 1}"
-        @click="tab = 1"
-      >Login</li>
-      <li
-        class="tab__item"
-        :class="{'tab__item--active': tab === 2}"
-        @click="tab = 2"
-      >Register</li>
-    </ul> -->
-    <!-- bootstrap -->
     <div class="btn-group btn-group-toggle btn-group-lg mt-5 row" data-toggle="buttons">
       <label @click="tab = 1" class="btn btn-secondary active">
         <input type="radio" name="options" id="option1" autocomplete="off" checked> ログイン

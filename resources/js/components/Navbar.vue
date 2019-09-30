@@ -12,6 +12,9 @@
           <router-link class="button button--link ml-3" :to="{ name: 'profile', params: { id: user.id}}">
             マイページ
           </router-link>
+          <router-link class="button button--link ml-3" :to="{ name: 'user_index'}">
+            ユーザ一覧
+          </router-link>
           <PostForm v-model="showForm" />
           <a href="javascript:void(0)" @click="logout" class="ml-3">
             <i class="fas fa-sign-out-alt">ログアウト</i>

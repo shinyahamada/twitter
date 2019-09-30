@@ -6,6 +6,8 @@ import Test from './pages/Test.vue'
 import Login from './pages/Login.vue'
 import Profile from './pages/Profile.vue'
 import Posts from './pages/Posts.vue'
+import UserIndex from './pages/UserIndex.vue'
+import UserEdit from './pages/UserEdit.vue'
 
 import store from './store'
 
@@ -36,10 +38,33 @@ const routes = [
     }
   },
   {
-    path: '/profile/:id',
+    path: '/user/show/:id',
     component: Profile,
     name: 'profile',
-    props: true,
+    beforeEnter (to, from, next) {
+      if (store.getters['auth/check']) {
+        next()
+      } else {
+        next('/')
+      }
+    }
+  },
+  {
+    path: '/user/index',
+    component: UserIndex,
+    name: 'user_index',
+    beforeEnter (to, from, next) {
+      if (store.getters['auth/check']) {
+        next()
+      } else {
+        next('/')
+      }
+    }
+  },
+  {
+    path:'/user/:id/edit',
+    component: UserEdit,
+    name: 'user_edit',
     beforeEnter (to, from, next) {
       if (store.getters['auth/check']) {
         next()

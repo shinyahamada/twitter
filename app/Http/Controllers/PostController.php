@@ -23,7 +23,7 @@ class PostController extends Controller
       $post->likes()->detach(Auth::user()->id);
       $post->likes()->attach(Auth::user()->id);
 
-      return ['result'=>1000];
+      return $post;
     }
 
     public function unlike($id) {
@@ -35,7 +35,7 @@ class PostController extends Controller
 
       $post->likes()->detach(Auth::user()->id);
 
-      return ['result'=>1000,'post_id'=>$id];
+      return $post;
     }
 
 

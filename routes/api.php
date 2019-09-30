@@ -23,6 +23,11 @@ Route::post('/register', 'Auth\RegisterController@register')->name('register');
 Route::post('/login', 'Auth\LoginController@login')->name('login');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
+// user
+Route::get('/user/index', 'UserController@index')->name('user_index');
+Route::get('/user/{id}', 'UserController@getUser');
+Route::post('/user/{id}/update', 'UserController@update')->name('user_update');
+
 // post
 Route::get('/post/{id}', 'PostController@index')->name('user_post');
 Route::get('/post', 'PostController@timeline')->name('user_timeline');
@@ -33,6 +38,5 @@ Route::post('/post', 'PostController@create')->name('post_create');
 Route::post('/post/{id}/comments', 'PostController@addComment')->name('post.comment');
 
 // like
-
 Route::put('/post/{id}/like', 'PostController@like')->name('post.like');
 Route::delete('/post/{id}/like', 'PostController@unlike');

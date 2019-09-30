@@ -11,8 +11,8 @@
             <p class="card-text">{{ item.content }}</p>
             <p class="card-text"><small class="text-muted"></small></p>
             <div class="buttons">
-                <i v-if="liked_by_user" @click.stop="unlike()" class="fas fa-heart">{{item.likes_count}}</i>
-                <i v-else @click.stop="like()" class="fas fa-heart">like</i>
+                <i v-if="liked_by_user" @click.stop="unlike()" class="fas fa-heart" style="color:red;">{{item.likes_count}}</i>
+                <i v-else @click.stop="like()" class="fas fa-heart">{{item.likes_count}}</i>
                 <i @click.stop="deletePost" class="fas fa-trash-alt ml-2"></i>
             </div>
           </div>
@@ -66,9 +66,15 @@ export default {
         return false
       }
 
+      // debug
+      console.log(this.item.id);
+      console.log(response.data.id);
+
       if (this.item.id == response.data.id) {
         this.item.likes_count += 1
         this.item.liked_by_user = true
+        // debug
+        console.log('like prop changed');
       }
       return;
     },
@@ -82,9 +88,15 @@ export default {
         this.$store.commit('erorr/setCode', response.status)
         return false
       }
+
+      // debug
+      console.log(this.item.id);
+      console.log(response.data.id);
       if (this.item.id == response.data.id) {
         this.item.likes_count -= 1
         this.item.liked_by_user = false
+        // debug
+        console.log('like prop changed');
       }
       return;
     },
