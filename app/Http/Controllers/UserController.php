@@ -11,25 +11,32 @@ class UserController extends Controller
     //
 
     public function index() {
-      $user = User::where([
-        ['is_deleted', false]
-      ]);
+      $user = User::where('is_deleted',false)->latest()
+                                             ->get();
 
-      return ['data'=>$user];
+      return $user;
     }
 
-    public function update(Request $request) {
+    public function update(Request $request, $id) {
 
-      $user = User::find($request->id);
+      $user = User::find($id);
       $user->name = $request->name;
       $user->profile = $request->profile;
-      $path = $request->file('image')->store('public');
-      $user->image = basename($path);
+      $user->password = $request->password;
+      $user->email = $request->email;
 
-      $user->save();
+      $result = $user->save();
 
-      return ['result'=>1000];
-
+      if ($result) {
+        return $user;
+      }
 
     }
+
+    public function getUser($id) {
+      $user = User::where('users.id', $id)->first();
+      return $user;
+    }
+
+
 }
